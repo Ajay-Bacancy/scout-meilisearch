@@ -33,6 +33,11 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+     /**
+     * Mass assingment
+     */
+    protected $duarded = ['id'];
+
     /**
      * The attributes that should be cast.
      *
@@ -41,4 +46,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Here user is an Author and single author can have multiple articles.
+     * so we have created one to many relationship with articles.
+     */
+
+     public function articles(Type $var = null)
+     {
+        return $this->hasMany(Article::class, 'author_id', 'id');
+     }
 }
